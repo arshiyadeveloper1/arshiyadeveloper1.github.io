@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AccEx Hackathon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600&family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap">
+<style>
+/* Layout: the case study runs on the hackathon's own 6-hour clock. White paper,
+   one violet accent, Bricolage Grotesque headings and DM Mono labels. */
+
+:root{
+  color-scheme: light;
+  --bg:#FFFFFF;--s1:#F7F7FB;--s2:#EFEFF6;--line:#E7E7EF;--line-2:#D9D9E6;
+  --ink:#14132B;--t2:#3F3E5A;--mu:#6B6A85;--g:#5B3DF5;--g2:#4527E0;--gsoft:rgba(91,61,245,.08);
+  --f-m:"Bricolage Grotesque","Segoe UI",Arial,sans-serif;--f-l:"DM Mono",ui-monospace,monospace;--f-b:"DM Sans","Segoe UI",Arial,sans-serif;
+  --gut:max(16px, env(safe-area-inset-left, 0px));--gut-r:max(16px, env(safe-area-inset-right, 0px));
+  --ease:cubic-bezier(.2,.7,.1,1);
+}
+@media (min-width:768px){:root{--gut:max(40px, env(safe-area-inset-left, 0px));--gut-r:max(40px, env(safe-area-inset-right, 0px))}}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-b);font-size:1.0625rem;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:radial-gradient(rgba(91,61,245,.10) 1px,transparent 1.2px);background-size:26px 26px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 70%);mask-image:linear-gradient(180deg,#000,transparent 70%)}
+::selection{background:var(--g);color:#fff}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+:focus-visible{outline:2px solid var(--g);outline-offset:3px;border-radius:4px}
+img,video{max-width:100%;display:block}
+h1,h2,h3{font-family:var(--f-m);font-weight:600;margin:0;letter-spacing:-.035em;line-height:1.1;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:1180px;margin-inline:auto;padding-left:var(--gut);padding-right:var(--gut-r)}
+.g{color:var(--g)}
+[data-reveal]{transition:opacity .9s var(--ease),transform .9s var(--ease)}
+[data-reveal].pending{opacity:0;transform:translateY(24px)}
+
+/* Top bar with a 6-hour clock that runs as you scroll */
+.bar{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);background:rgba(255,255,255,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar-in{height:60px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.back{display:inline-flex;align-items:center;gap:10px;font-size:.9375rem;font-weight:600;padding:7px 14px 7px 10px;border-radius:999px;border:1px solid var(--line-2);transition:background .25s,color .25s}
+.back:hover{background:var(--g);color:#fff;border-color:var(--g)}
+.back svg{width:18px;height:18px}
+.clock{font-family:var(--f-l);font-size:.9375rem;color:var(--mu);display:flex;align-items:center;gap:10px}
+.clock b{color:var(--g);font-weight:600;font-variant-numeric:tabular-nums;font-size:1.0625rem}
+.clock i{width:8px;height:8px;border-radius:50%;background:var(--g);animation:blink 1.2s infinite}
+@keyframes blink{50%{opacity:.25}}
+.prog{position:fixed;left:0;top:calc(60px + env(safe-area-inset-top,0px));height:3px;width:100%;background:linear-gradient(90deg,#9B87FF,var(--g));transform-origin:0 50%;transform:scaleX(0);z-index:51}
+
+/* Hero */
+.hero{padding-top:calc(60px + clamp(56px,8vw,104px));padding-bottom:clamp(56px,7vw,96px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,56px);align-items:center}
+@media (max-width:980px){.hero-grid{grid-template-columns:1fr}}
+.tag{display:inline-flex;align-items:center;gap:8px;width:fit-content;font-family:var(--f-l);font-size:.875rem;padding:5px 12px;border-radius:4px;background:var(--gsoft);color:var(--g);border:1px solid rgba(91,61,245,.25)}
+.tag::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--g)}
+.hero-copy{display:grid;gap:22px}
+.hero h1{font-size:clamp(2rem,1.3rem + 2.2vw,3rem)}
+.type{display:inline;border-right:3px solid var(--g);padding-right:4px;animation:caret .8s step-end infinite}
+@keyframes caret{50%{border-color:transparent}}
+.hero p{color:var(--t2);font-size:1.125rem;max-width:40ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px}
+.meta span{font-family:var(--f-l);font-size:.875rem;padding:6px 12px;border:1px solid var(--line-2);border-radius:4px;color:var(--t2)}
+.btn{display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 24px;border-radius:999px;font-family:var(--f-b);font-weight:600;font-size:.9375rem;transition:transform .3s var(--ease),box-shadow .3s}
+.btn svg{width:16px;height:16px}
+.btn-g{background:var(--g);color:#fff}
+.btn-g:hover{transform:translateY(-2px);box-shadow:0 12px 28px -10px rgba(91,61,245,.6)}
+.btn-o{border:1px solid var(--line-2)}
+.btn-o:hover{border-color:var(--g);color:var(--g)}
+.frame{border-radius:14px;overflow:hidden;border:1px solid var(--line-2);background:#fff;box-shadow:0 30px 70px -30px rgba(20,19,43,.35)}
+.frame-top{height:32px;display:flex;align-items:center;gap:6px;padding:0 12px;border-bottom:1px solid var(--line);background:#fff}
+.frame-top i{width:9px;height:9px;border-radius:50%;background:var(--line-2)}
+.frame-top i:nth-child(1){background:#FF6159}.frame-top i:nth-child(2){background:#FFBD2E}.frame-top i:nth-child(3){background:#29C940}
+.frame-top span{margin-left:8px;font-family:var(--f-l);font-size:.8125rem;color:var(--mu)}
+.frame video{width:100%;aspect-ratio:16/10;object-fit:cover;background:#000}
+
+/* Hour blocks */
+.hr{padding-block:clamp(64px,8vw,112px);border-top:1px solid var(--line)}
+.hr-head{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-items:baseline;margin-bottom:clamp(28px,4vw,44px)}
+.hr-head .t{font-family:var(--f-l);font-size:1rem;color:var(--g);white-space:nowrap}
+.hr-head h2{font-size:clamp(1.7rem,1.2rem + 2vw,2.7rem)}
+.hr-head p{grid-column:2;color:var(--mu);font-size:1.0625rem}
+@media (max-width:600px){.hr-head{grid-template-columns:1fr}.hr-head p{grid-column:1}}
+
+/* Brief */
+.brief{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.brief{grid-template-columns:1fr}}
+.brief div{border:1px solid var(--line);background:var(--s1);border-radius:16px;padding:20px;display:grid;gap:6px}
+.brief small{font-family:var(--f-l);font-size:.8125rem;color:var(--mu);text-transform:uppercase;letter-spacing:.06em}
+.brief b{font-family:var(--f-m);font-weight:600;font-size:1.125rem}
+
+/* Idea */
+.idea{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:16px}
+@media (max-width:900px){.idea{grid-template-columns:1fr}}
+.idea .frame img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.kit{display:grid;gap:14px;align-content:start}
+.kit > div{border:1px solid var(--line);background:var(--s1);border-radius:16px;padding:20px;display:grid;gap:12px}
+.kit small{font-family:var(--f-l);font-size:.8125rem;color:var(--mu);text-transform:uppercase;letter-spacing:.06em}
+.sw{display:flex;gap:8px}
+.sw i{flex:1;height:44px;border-radius:10px;border:1px solid var(--line-2)}
+.mono{font-family:var(--f-l);font-size:1.375rem;font-weight:500}
+.kit p{font-size:.9375rem;color:var(--t2)}
+
+/* Gallery */
+.gal-wrap{position:relative}
+.gal{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:6px;scroll-behavior:smooth}
+.gal::-webkit-scrollbar{display:none}
+.gal figure{margin:0;flex:0 0 min(78%,720px);scroll-snap-align:start;display:grid;gap:12px;cursor:zoom-in}
+.gal .frame img{width:100%;aspect-ratio:16/10;object-fit:cover;transition:transform .8s var(--ease)}
+.gal figure:hover img{transform:scale(1.02)}
+.gal figcaption{display:flex;gap:14px;align-items:baseline}
+.gal figcaption b{font-family:var(--f-l);color:var(--g);font-weight:600;font-size:.9375rem}
+.gal figcaption span{font-weight:600}
+.gal figcaption em{font-style:normal;color:var(--mu)}
+.gal-nav{display:flex;align-items:center;gap:12px;margin-top:18px}
+.gal-nav button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;transition:border-color .3s,color .3s}
+.gal-nav button:hover{border-color:var(--g);color:var(--g)}
+.gal-nav svg{width:18px;height:18px}
+.dots{display:flex;gap:6px;margin-left:8px}
+.dots i{width:22px;height:3px;border-radius:2px;background:var(--line-2);transition:background .3s,width .3s}
+.dots i.on{background:var(--g);width:38px}
+
+/* Choices */
+.choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:860px){.choices{grid-template-columns:1fr}}
+.choices div{border:1px solid var(--line);background:var(--s1);border-radius:16px;padding:22px;display:grid;gap:10px;align-content:start;transition:border-color .3s,transform .5s var(--ease)}
+.choices div:hover{border-color:rgba(91,61,245,.45);transform:translateY(-3px)}
+.choices b{font-family:var(--f-l);font-size:.875rem;color:var(--g)}
+.choices h3{font-size:1.25rem}
+.choices p{color:var(--t2)}
+s{color:var(--mu)}
+
+.end{padding-block:clamp(72px,9vw,128px);border-top:1px solid var(--line);text-align:center}
+.end .wrap{display:grid;justify-items:center;gap:22px}
+.end h2{font-size:clamp(2rem,1.3rem + 3vw,3.4rem)}
+.btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+footer{padding-block:24px calc(24px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);font-size:.9375rem;color:var(--mu)}
+.lb{position:fixed;inset:0;z-index:100;background:rgba(20,19,43,.86);display:grid;place-items:center;padding:20px 16px;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;cursor:zoom-out}
+.lb.open{opacity:1;visibility:visible}
+.lb img{max-width:min(1300px,100%);max-height:100%;border-radius:10px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}html{scroll-behavior:auto}}
+
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="wrap bar-in">
+    <a class="back" href="index.html#work"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>All projects</a>
+    <span class="clock"><i></i>Hackathon clock <b id="clk">00:00</b></span>
+  </div>
+</header>
+<div class="prog" id="prog" aria-hidden="true"></div>
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="tag">Case study 07 · Hackathon</span>
+        <h1>A site that makes you want to <span class="type g" id="typeW">build.</span></h1>
+        <p>The registration website for AccEx AI Spring 2026, a 6-hour hackathon hosted by AcceleratorX.</p>
+        <div class="meta"><span>Web</span><span>UI &amp; motion</span><span>Figma prototype</span></div>
+        <div><a class="btn btn-g" href="https://www.figma.com/proto/w9vm9WdSy7j8QfFxWzb7a2/CMS-app?node-id=6-69&p=f&viewport=158%2C119%2C0.4&scaling=scale-down-width&content-scaling=fixed&page-id=5%3A19130" target="_blank" rel="noopener">Open the prototype<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9"/></svg></a></div>
+      </div>
+      <div class="frame" data-reveal><div class="frame-top"><i></i><i></i><i></i><span>accex · spring 2026</span></div><video data-v muted loop playsinline preload="none" poster="work/hack/hero.webp" aria-label="Hero animation"><source src="work/hack/hero.webm" type="video/webm"><source src="work/hack/hero.mp4" type="video/mp4"></video></div>
+    </div>
+  </section>
+  <section class="hr" data-hour>
+    <div class="wrap">
+      <div class="hr-head" data-reveal><span class="t">00:00</span><h2>The brief</h2></div>
+      <div class="brief">
+        <div data-reveal><small>For</small><b>Learners &amp; students</b></div>
+        <div data-reveal><small>Goal</small><b>Get them to register</b></div>
+        <div data-reveal><small>Offer</small><b><s>₹500</s> <span class="g">Free</span> seat</b></div>
+      </div>
+    </div>
+  </section>
+  <section class="hr" data-hour>
+    <div class="wrap">
+      <div class="hr-head" data-reveal><span class="t">01:00</span><h2>The idea: space + code</h2><p>Building something new feels like a launch. So the site does too.</p></div>
+      <div class="idea">
+        <div class="frame" data-reveal><div class="frame-top"><i></i><i></i><i></i><span>the mascot</span></div><img src="work/hack/s-hours.webp" alt="Astronaut bunny mascot pushing a cube" loading="lazy"></div>
+        <div class="kit">
+          <div data-reveal><small>Colour</small><div class="sw"><i style="background:#000"></i><i style="background:#121612"></i><i style="background:#3BFF6E"></i><i style="background:#fff"></i></div></div>
+          <div data-reveal><small>Type</small><span class="mono">Mono = builders</span><p>Monospace headings speak the language of people who code.</p></div>
+          <div data-reveal><small>Mascot</small><p>An astronaut bunny shows up in every section: coding, building, guarding, celebrating.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="hr" data-hour>
+    <div class="wrap">
+      <div class="hr-head" data-reveal><span class="t">02:00</span><h2>The full site</h2><p>Top to bottom, recorded from the prototype.</p></div>
+      <div class="frame" data-reveal><div class="frame-top"><i></i><i></i><i></i><span>accex · spring 2026</span></div><video data-v muted loop playsinline preload="none" poster="work/hack/walk.webp" aria-label="Full scroll through the hackathon site"><source src="work/hack/walk.webm" type="video/webm"><source src="work/hack/walk.mp4" type="video/mp4"></video></div>
+    </div>
+  </section>
+  <section class="hr" data-hour>
+    <div class="wrap">
+      <div class="hr-head" data-reveal><span class="t">04:00</span><h2>Section by section</h2><p>Each section answers one doubt before the next.</p></div>
+      <div class="gal-wrap" data-reveal>
+        <div class="gal" id="gal"><figure data-zoom="work/hack/s-hero.webp"><div class="frame"><img src="work/hack/s-hero.webp" alt="Hero section" loading="lazy"></div><figcaption><b>01</b><span>Hero</span><em>The promise in one line, and a free seat.</em></figcaption></figure><figure data-zoom="work/hack/s-why.webp"><div class="frame"><img src="work/hack/s-why.webp" alt="Why it’s different section" loading="lazy"></div><figcaption><b>02</b><span>Why it’s different</span><em>Working systems, not slide decks.</em></figcaption></figure><figure data-zoom="work/hack/s-reg.webp"><div class="frame"><img src="work/hack/s-reg.webp" alt="Registration section" loading="lazy"></div><figcaption><b>03</b><span>Registration</span><em>Solo or a team of up to four.</em></figcaption></figure><figure data-zoom="work/hack/s-hours.webp"><div class="frame"><img src="work/hack/s-hours.webp" alt="The 6 hours section" loading="lazy"></div><figcaption><b>04</b><span>The 6 hours</span><em>What happens, start to demo.</em></figcaption></figure><figure data-zoom="work/hack/s-plan.webp"><div class="frame"><img src="work/hack/s-plan.webp" alt="Hour by hour section" loading="lazy"></div><figcaption><b>05</b><span>Hour by hour</span><em>A plan, so it feels doable.</em></figcaption></figure><figure data-zoom="work/hack/s-get.webp"><div class="frame"><img src="work/hack/s-get.webp" alt="What you get section" loading="lazy"></div><figcaption><b>06</b><span>What you get</span><em>Feedback, a showcase, a real build.</em></figcaption></figure><figure data-zoom="work/hack/s-faq.webp"><div class="frame"><img src="work/hack/s-faq.webp" alt="Questions section" loading="lazy"></div><figcaption><b>07</b><span>Questions</span><em>Four answers that remove doubt.</em></figcaption></figure><figure data-zoom="work/hack/s-cta.webp"><div class="frame"><img src="work/hack/s-cta.webp" alt="Final call section" loading="lazy"></div><figcaption><b>08</b><span>Final call</span><em>One last push to register.</em></figcaption></figure></div>
+        <div class="gal-nav"><button type="button" id="prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button><button type="button" id="next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button><div class="dots" id="dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+      </div>
+    </div>
+  </section>
+  <section class="hr" data-hour>
+    <div class="wrap">
+      <div class="hr-head" data-reveal><span class="t">05:00</span><h2>Choices that worked</h2></div>
+      <div class="choices">
+        <div data-reveal><b>01</b><h3>Free, with the price shown</h3><p>“<s>₹500</s> FREE” on every button makes the seat feel valuable.</p></div>
+        <div data-reveal><b>02</b><h3>One action everywhere</h3><p>Every section ends with the same green register button.</p></div>
+        <div data-reveal><b>03</b><h3>Doubts answered early</h3><p>Who can join, solo or team, and the FAQ come before the final call.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="end">
+    <div class="wrap">
+      <span class="tag">06:00 · Demo time</span>
+      <h2>See it <span class="g">live.</span></h2>
+      <div class="btns"><a class="btn btn-g" href="https://www.figma.com/proto/w9vm9WdSy7j8QfFxWzb7a2/CMS-app?node-id=6-69&p=f&viewport=158%2C119%2C0.4&scaling=scale-down-width&content-scaling=fixed&page-id=5%3A19130" target="_blank" rel="noopener">Open the prototype<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9"/></svg></a><a class="btn btn-o" href="index.html#work">All projects</a></div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap">© 2026 Arshiya M A · AccEx AI Spring 2026</div></footer>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Screen preview"><img alt=""></div>
+
+<script>
+(() => {
+  try { history.scrollRestoration = 'manual'; } catch (e) { }
+  const toTop = () => { if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); };
+  toTop(); addEventListener('load', toTop); addEventListener('pageshow', toTop);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = (s, c = document) => c.querySelector(s), $$ = (s, c = document) => [...c.querySelectorAll(s)];
+
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.remove('pending'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    $$('[data-reveal]').forEach((el, i) => { if (el.getBoundingClientRect().top > innerHeight) { el.classList.add('pending'); el.style.transitionDelay = (i % 3) * 0.08 + 's'; io.observe(el); } });
+  }
+
+  // Clock: scrolling the page runs the 6-hour hackathon
+  const clk = $('#clk'), prog = $('#prog');
+  const onScroll = () => {
+    const max = document.documentElement.scrollHeight - innerHeight, k = max > 0 ? scrollY / max : 0;
+    const mins = Math.round(k * 360);
+    clk.textContent = `${String(Math.floor(mins / 60)).padStart(2, '0')}:${String(mins % 60).padStart(2, '0')}`;
+    prog.style.transform = `scaleX(${k})`;
+    $$('.pending').forEach(el => { if (el.getBoundingClientRect().top < innerHeight * .95) el.classList.remove('pending'); });
+  };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // Hero word types itself: build. ship. demo.
+  const tw = $('#typeW'), words = ['build.', 'ship.', 'demo.'];
+  if (!reduce) {
+    let wi = 0;
+    const cycle = async () => {
+      const wait = ms => new Promise(r => setTimeout(r, ms));
+      for (;;) {
+        await wait(2200);
+        for (let k = words[wi].length; k >= 0; k--) { tw.textContent = words[wi].slice(0, k) || '​'; await wait(60); }
+        wi = (wi + 1) % words.length;
+        for (let k = 1; k <= words[wi].length; k++) { tw.textContent = words[wi].slice(0, k); await wait(90); }
+      }
+    };
+    cycle();
+  }
+
+  // Videos play while on screen
+  const vio = new IntersectionObserver(es => es.forEach(e => { const v = e.target; if (e.isIntersecting && !reduce) { v.preload = 'auto'; v.play().catch(() => { }); } else v.pause(); }), { threshold: .35 });
+  $$('video[data-v]').forEach(v => vio.observe(v));
+
+  // Gallery: arrows, dots, and a gentle auto-advance while in view
+  const gal = $('#gal'), figs = $$('figure', gal), dots = $$('#dots i');
+  let gi = 0, gT, gOn = false, hover = false;
+  const go = i => { gi = (i + figs.length) % figs.length; gal.scrollTo({ left: figs[gi].offsetLeft - gal.offsetLeft, behavior: 'smooth' }); };
+  const mark = () => { const x = gal.scrollLeft; let best = 0; figs.forEach((f, i) => { if (Math.abs(f.offsetLeft - gal.offsetLeft - x) < Math.abs(figs[best].offsetLeft - gal.offsetLeft - x)) best = i; }); gi = best; dots.forEach((d, i) => d.classList.toggle('on', i === best)); };
+  gal.addEventListener('scroll', mark, { passive: true });
+  const auto = () => { clearTimeout(gT); if (gOn && !hover && !reduce) gT = setTimeout(() => { go(gi + 1); auto(); }, 3200); };
+  $('#prev').addEventListener('click', () => { go(gi - 1); auto(); });
+  $('#next').addEventListener('click', () => { go(gi + 1); auto(); });
+  gal.addEventListener('mouseenter', () => { hover = true; clearTimeout(gT); });
+  gal.addEventListener('mouseleave', () => { hover = false; auto(); });
+  gal.addEventListener('touchstart', () => { hover = true; clearTimeout(gT); }, { passive: true });
+  new IntersectionObserver(es => { gOn = es[0].isIntersecting; auto(); }, { threshold: .4 }).observe(gal);
+
+  // Lightbox
+  const lb = $('#lb'), lbImg = $('img', lb);
+  lb.addEventListener('click', () => lb.classList.remove('open'));
+  addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('open'); });
+  $$('[data-zoom]').forEach(el => el.addEventListener('click', () => { lbImg.src = el.dataset.zoom; lbImg.alt = $('img', el).alt; lb.classList.add('open'); }));
+})();
+</script>
+</body>
+</html>
