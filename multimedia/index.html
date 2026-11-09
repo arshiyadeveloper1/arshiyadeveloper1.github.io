@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Arshiya M A, Multimedia Designer. Thumbnails, video edits and design work.">
+<title>Arshiya M A Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Layout: Canva canvas reproduced 1:1. Design is 1920 units wide; 1 unit = 100vw/1920.
+     Every left/top/width below is the exact Canva pixel value at 1920px. */
+  :root{
+    color-scheme:dark;
+    --bg:#000; --fg:#fff; --muted:#9b9b9b; --line:rgba(255,255,255,.85); --ph:#1c1c1c;
+    --serif:"Gilda Display", Georgia, "Times New Roman", serif;
+    --sans:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --u:calc(100vw / 1920);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--fg)}
+  body{font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img,video{display:block;max-width:100%}
+  a,button{color:inherit;text-decoration:none;font:inherit}
+  button{background:none;border:0;cursor:pointer}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:4px}
+
+  /* section = one Canva block; s = vertical/size unit (hero shrinks to fit the screen height) */
+  .s{position:relative;--s:var(--u);height:calc(var(--h,1079) * var(--s))}
+  .hero{--s:min(var(--u), 100svh / 1080)}
+  .a{position:absolute;left:calc(var(--x) * var(--u));top:calc(var(--y) * var(--s));width:calc(var(--w) * var(--s))}
+  .row{display:contents}
+  .card.clone{display:none}
+
+  /* type, sizes are Canva's rendered px */
+  .d{font-family:var(--serif);font-weight:400;font-size:calc(140.6 * var(--s));line-height:calc(132 * var(--s));letter-spacing:-.005em}
+  .q{font-family:var(--serif);font-weight:400;font-size:calc(103 * var(--s));line-height:calc(121 * var(--s))}
+  .t48{font-size:calc(48.7 * var(--s));line-height:calc(46.4 * var(--s))}
+  .t42{font-size:calc(42.6 * var(--s));line-height:calc(50.7 * var(--s))}
+  .t37{font-size:calc(37.5 * var(--s));line-height:calc(52 * var(--s))}
+  .t35{font-size:calc(35.6 * var(--s));line-height:calc(42.2 * var(--s))}
+  .t34{font-size:calc(34.6 * var(--s));line-height:calc(40.6 * var(--s))}
+  .muted{color:var(--muted)}
+  .t48 span{white-space:nowrap}
+  .a.rt{left:auto;right:calc(108 * var(--u));width:auto}
+
+  /* arrow icon */
+  .ar{display:flex;align-items:flex-start}
+  .ar svg{flex:none;width:calc(var(--aw,42) * var(--s));height:calc(var(--aw,42) * var(--s));margin-right:calc(var(--ag,37) * var(--s))}
+
+  /* hero */
+  .pill{display:flex;align-items:center;justify-content:center;height:calc(101 * var(--s));border:2px solid var(--line);border-radius:999px;white-space:nowrap}
+  .tilt{height:calc(var(--hh) * var(--s))}
+  .tilt .el{position:absolute;left:50%;top:50%;width:calc(var(--ew) * var(--s));height:calc(var(--eh) * var(--s));transform:translate(-50%,-50%) rotate(20deg);border-radius:50%;overflow:hidden;background:var(--ph)}
+  .tilt .el img{position:absolute;left:50%;top:50%;width:calc(var(--iw) * var(--s));height:calc(var(--ih) * var(--s));max-width:none;object-fit:cover;transform:translate(-50%,-50%) rotate(-20deg)}
+  .oval{border-radius:50%;overflow:hidden;background:var(--ph)}
+  .oval img{width:100%;height:100%;object-fit:cover}
+
+  /* who */
+  .rule{height:2px;background:var(--line)}
+
+  /* background list */
+  .lst li{list-style:none;position:relative;padding-left:calc(35 * var(--s))}
+  .lst li::before{content:"";position:absolute;left:calc(4 * var(--s));top:calc(18 * var(--s));width:calc(7 * var(--s));height:calc(7 * var(--s));border-radius:50%;background:var(--muted)}
+
+  /* cards */
+  .arch{border-radius:999px 999px 0 0;overflow:hidden;background:var(--ph);position:relative}
+  .arch img,.arch video{width:100%;height:100%;object-fit:cover;object-position:50% 38%;transition:transform .6s ease}
+  .card:hover .arch img{transform:scale(1.04)}
+  .card .cap{margin-top:calc(var(--cg) * var(--s));padding-left:calc(var(--cx,0) * var(--s))}
+  .snd{position:absolute;right:calc(16 * var(--s));bottom:calc(16 * var(--s));width:calc(48 * var(--s));height:calc(48 * var(--s));min-width:32px;min-height:32px;border-radius:50%;background:rgba(0,0,0,.6);font-size:calc(20 * var(--s))}
+  .vid{cursor:pointer}
+
+  /* contact */
+  .copy{margin-top:8px;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:5px 14px;font-size:13px;color:var(--fg)}
+  .copy:hover{border-color:var(--fg)}
+  .sel{user-select:all}
+  a.ar:hover span,button.ar:hover span{text-decoration:underline;text-underline-offset:6px}
+
+  /* phone / narrow screens: stack in reading order */
+  @media (max-width:820px){
+    :root{--u:1px}
+    .s,.hero{--s:1px;height:auto;display:flex;flex-direction:column;gap:28px;padding-block:72px;padding-left:max(16px, env(safe-area-inset-left,0px));padding-right:max(16px, env(safe-area-inset-right,0px))}
+    .hero{height:100vh;height:100svh;min-height:560px;justify-content:flex-start;gap:14px;padding-block:12px 24px}
+    .hero .d{font-size:clamp(34px, 6.4svh, 52px)}
+    .hero .rt{margin-top:auto}
+    .a{position:static;width:auto}
+    .d{font-size:52px;line-height:1.02}
+    .q{font-size:38px;line-height:1.15}
+    .t48{font-size:18px;line-height:1.3}
+    .t42{font-size:17px;line-height:1.45}
+    .t37{font-size:17px;line-height:1.5}
+    .t35,.t34{font-size:15px;line-height:1.4}
+    .ar svg{width:20px;height:20px;margin-right:12px}
+    .pill{height:auto;padding:12px 22px;align-self:flex-start;font-size:16px;border-width:1px}
+    .tilt{height:auto;display:flex;justify-content:center}
+    .hero .tilt{order:-1}
+    .hero .tilt .el{margin:26px 0 22px}
+    @media (max-height:640px){.hero{gap:8px;padding-block:4px 12px}.hero .tilt .el{margin:22px 0 14px}}
+    .who .who-oval{order:1}.who p{order:2}.who .rule{order:3}
+    .tilt .el{position:relative;left:auto;top:auto;transform:rotate(20deg);width:200px;height:330px;margin:24px 0}
+    .tilt .el img{width:300px;height:420px}
+    .who-oval{width:240px!important;height:360px!important;align-self:center}
+    .rule{width:110px!important}
+    .lst li{padding-left:22px}.lst li::before{left:4px;top:9px;width:5px;height:5px}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:28px 16px}
+    .art .row{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-inline:calc(-1 * max(16px, env(safe-area-inset-left,0px)));padding-inline:max(16px, env(safe-area-inset-left,0px));scroll-padding-inline:max(16px, env(safe-area-inset-left,0px))}
+    .art .row::-webkit-scrollbar{display:none}
+    .art .row .card{flex:0 0 78%;min-width:0}
+    .art .row .card.clone{display:block}
+    .card .arch{height:auto!important;aspect-ratio:481/522}
+    .more .card .arch{aspect-ratio:367/397}
+    .card .cap{margin-top:12px;padding-left:0}
+    .snd{width:36px;height:36px;font-size:16px}
+    .contact-items{display:flex;flex-direction:column;gap:20px}
+  }
+  @media (max-width:820px){
+    .contact-items{gap:28px}
+    .contact-items .a{display:block;width:100%}
+    .contact-items h4{font-size:21px!important;line-height:1.3!important}
+    .contact-items p{font-size:19px!important;line-height:1.45!important;margin-top:4px!important}
+    .contact-items .copy{display:block;width:100%;margin-top:12px;padding:13px 16px;font-size:16px;text-align:center}
+    .s > *{max-width:100%}
+    .lst{margin-left:32px!important}
+  }
+  @media (prefers-reduced-motion:reduce){.arch img{transition:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 3v7a5 5 0 0 0 5 5h11"/><path d="M16 11l4 4-4 4"/>
+  </symbol>
+</svg>
+
+<!-- 1. HERO -->
+<section class="s hero" style="--h:1080">
+  <h1 class="a d" style="--x:108;--y:126;--w:900">Welcome to<br>My Design<br>Portfolio</h1>
+  <div class="a pill t37" style="--x:108;--y:645;--w:675">Arshiya M A / Multimedia Designer</div>
+  <div class="a tilt" style="--x:1014;--y:104;--w:512;--hh:754;--ew:464;--eh:784;--iw:640;--ih:960">
+    <div class="el"><img src="img/hero.jpg" alt="Arshiya at a café table"></div>
+  </div>
+  <a class="a ar t48 rt" style="--x:1405;--y:929;--w:460;--aw:42;--ag:37" href="https://wa.me/918838294400" target="_blank" rel="noopener"><svg><use href="#arr"/></svg><span>Work with me today</span></a>
+</section>
+
+<!-- 2. WHO IS ARSHIYA -->
+<section class="s who">
+  <h2 class="a d" style="--x:108;--y:176;--w:915">Who is<br>Arshiya?</h2>
+  <p class="a t42" style="--x:108;--y:552;--w:690">I'm a Multimedia Designer with Two years of experience. Today, I'm a full-time creative freelancer who loves to explore everything.</p>
+  <div class="a rule" style="--x:108;--y:812;--w:240"></div>
+  <div class="a oval who-oval" style="--x:1159;--y:107;--w:580;height:calc(864 * var(--s))"><img src="img/portrait.jpg" alt="Portrait of Arshiya"></div>
+</section>
+
+<!-- 3. BACKGROUND -->
+<section class="s bg">
+  <h2 class="a d" style="--x:108;--y:126;--w:1100">My Background</h2>
+  <div class="a" style="--x:863;--y:363;--w:740">
+    <h3 class="ar t37" style="font-weight:400;--aw:42;--ag:35"><svg><use href="#arr"/></svg>Education</h3>
+    <ul class="lst t35 muted" style="margin:calc(2 * var(--s)) 0 0 calc(103 * var(--s))">
+      <li>Grade 12 from Bharat International school(CBSE), 2019</li>
+      <li>BE-Electronics from Thanthai Periyar Govt Institue of Technology,&nbsp; 2020 -2024</li>
+    </ul>
+    <h3 class="ar t37" style="font-weight:400;--aw:42;--ag:35;margin-top:calc(19 * var(--s))"><svg><use href="#arr"/></svg>Work Experience</h3>
+    <ul class="lst t35 muted" style="margin:calc(2 * var(--s)) 0 0 calc(103 * var(--s))">
+      <li>Freelance Multimedia Designer, 2024-present</li>
+      <li>UI/UX Designer-2 years experience, 2024 to Present</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 4. MY ART -->
+<section class="s art">
+  <h2 class="a d" style="--x:108;--y:127;--w:1224">My Art</h2>
+  <div class="row">
+    <div class="a card" style="--x:89;--y:285;--w:481;--cg:36;--cx:19">
+      <div class="arch" style="height:calc(522 * var(--s))"><img src="img/art-suresh.jpg" alt="Thumbnail: Ranking the books"></div>
+      <p class="cap ar t35" style="--aw:37;--ag:27"><svg><use href="#arr"/></svg><span>Thumbnail for<br>Suresh Kumar by<br>Manjiro Tech.</span></p>
+    </div>
+    <div class="a card" style="--x:719;--y:285;--w:481;--cg:36;--cx:51">
+      <div class="arch vid" style="height:calc(522 * var(--s))"><video src="video/five-questions.mp4" poster="video/five-questions.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Video edit for Meenatchi"></video><button class="snd" aria-label="Unmute video">🔇</button></div>
+      <p class="cap ar t35" style="--aw:37;--ag:27"><svg><use href="#arr"/></svg><span>Video edit for<br>Meenatchi by<br>Manjiro Tech.</span></p>
+    </div>
+    <div class="a card" style="--x:1380;--y:285;--w:481;--cg:36;--cx:53">
+      <div class="arch" style="height:calc(522 * var(--s))"><img src="img/art-saloe.jpg" alt="Thumbnail: Stress ah? Take 1 hour for yourself"></div>
+      <p class="cap ar t35" style="--aw:37;--ag:27"><svg><use href="#arr"/></svg><span>Thumbnail for<br>Saloewellnessstudio<br>by Manjiro Tech.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 5. QUOTE -->
+<section class="s quote">
+  <h2 class="a q" style="--x:108;--y:358;--w:830">Art speaks where words are unable to explain.</h2>
+  <div class="a tilt" style="--x:1122;--y:103;--w:593;--hh:873;--ew:538;--eh:908;--iw:760;--ih:1110">
+    <div class="el"><img src="img/reading.jpg" alt="Arshiya reading a book"></div>
+  </div>
+</section>
+
+<!-- 6. MORE OF MY WORK -->
+<section class="s more">
+  <h2 class="a d" style="--x:108;--y:122;--w:1122">More of My Work</h2>
+  <div class="row">
+    <div class="a card" style="--x:108;--y:442;--w:367;--cg:36">
+      <div class="arch" style="height:calc(397 * var(--s))"><img src="img/work-puffy.jpg" alt="Thumbnail: Face puffy ah irukka?"></div>
+      <p class="cap ar t34" style="--aw:36;--ag:26"><svg><use href="#arr"/></svg><span>About 5 Areas to find out face puffiness</span></p>
+    </div>
+    <div class="a card" style="--x:557;--y:442;--w:367;--cg:36">
+      <div class="arch" style="height:calc(397 * var(--s))"><img src="img/work-redflag.jpg" alt="Thumbnail: Is this love or a red flag?"></div>
+      <p class="cap ar t34" style="--aw:36;--ag:26"><svg><use href="#arr"/></svg><span>Is This love or a Red flag?</span></p>
+    </div>
+    <div class="a card" style="--x:1002;--y:442;--w:367;--cg:36">
+      <div class="arch vid" style="height:calc(397 * var(--s))"><video src="video/money.mp4" poster="video/money.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Video edit for Meenatchi: money"></video><button class="snd" aria-label="Unmute video">🔇</button></div>
+      <p class="cap ar t34" style="--aw:36;--ag:26"><svg><use href="#arr"/></svg><span>5 Money formulas everyone to know</span></p>
+    </div>
+    <div class="a card" style="--x:1446;--y:442;--w:367;--cg:36">
+      <div class="arch" style="height:calc(397 * var(--s))"><img src="img/work-movies.jpg" alt="Thumbnail: Must watch movies"></div>
+      <p class="cap ar t34" style="--aw:36;--ag:26"><svg><use href="#arr"/></svg><span>5 Must watch movies</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 7. CONTACT -->
+<section class="s contact" id="contact" style="--h:1061">
+  <h2 class="a d" style="--x:108;--y:108;--w:852">Reach Out<br>to Me</h2>
+  <div class="contact-items">
+    <div class="a" style="--x:108;--y:609;--w:560">
+      <h4 class="t37" style="font-weight:400">Address</h4>
+      <p class="t35 muted" style="margin-top:calc(2 * var(--s))">Southmed Street, Newpet,<br>Krishnagiri - 635001</p>
+    </div>
+    <div class="a" style="--x:740;--y:611;--w:560">
+      <h4 class="t37" style="font-weight:400">Email</h4>
+      <p class="t35 muted sel" style="margin-top:calc(2 * var(--s))">maarshiya441@gmail.com</p>
+      <button class="copy" data-copy="maarshiya441@gmail.com">Copy email</button>
+    </div>
+    <div class="a" style="--x:1415;--y:611;--w:440">
+      <h4 class="t37" style="font-weight:400">Phone</h4>
+      <p class="t35 muted sel" style="margin-top:calc(2 * var(--s))">+91 8838294400</p>
+      <button class="copy" data-copy="+91 8838294400">Copy number</button>
+    </div>
+  </div>
+  <a class="a ar t48 rt" style="--x:1377;--y:906;--w:500;--aw:44;--ag:31" href="https://wa.me/918838294400" target="_blank" rel="noopener"><svg><use href="#arr"/></svg><span>Let's collaborate</span></a>
+</section>
+
+<script>
+  // My Art on phones: continuous, seamless marquee (cards duplicated once so it loops without a jump)
+  (() => {
+    const row = document.querySelector('.art .row');
+    [...row.children].forEach(c => { const k = c.cloneNode(true); k.classList.add('clone'); k.setAttribute('aria-hidden','true'); k.querySelectorAll('button').forEach(b => b.tabIndex = -1); row.appendChild(k); });
+    row.querySelectorAll('.clone video').forEach(v => { v.muted = true; v.play().catch(() => {}); });
+    const mq = matchMedia('(max-width:820px)'), rm = matchMedia('(prefers-reduced-motion: reduce)');
+    const SPEED = 40; // px per second
+    let pos = 0, last = 0, holdUntil = 0, down = false;
+    const hold = () => { holdUntil = performance.now() + 2500; };
+    row.addEventListener('pointerdown', () => { down = true; hold(); }, {passive:true});
+    row.addEventListener('touchstart', () => { down = true; hold(); }, {passive:true});
+    ['pointerup','pointercancel','touchend'].forEach(ev => row.addEventListener(ev, () => { down = false; hold(); }, {passive:true}));
+    row.addEventListener('wheel', hold, {passive:true});
+    function tick(t) {
+      const dt = last ? Math.min(t - last, 64) / 1000 : 0; last = t;
+      if (mq.matches) {
+        const half = row.querySelector('.clone').offsetLeft - row.firstElementChild.offsetLeft;
+        if (down || t < holdUntil || rm.matches || document.hidden) {
+          pos = row.scrollLeft;
+        } else {
+          pos += SPEED * dt;
+        }
+        if (half > 0 && pos >= half) pos -= half;
+        if (!down && t >= holdUntil && !rm.matches) row.scrollLeft = pos;
+        else if (half > 0 && row.scrollLeft >= half) row.scrollLeft -= half;
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
+  document.querySelectorAll('.vid').forEach(w => {
+    const v = w.querySelector('video'), b = w.querySelector('.snd');
+    w.addEventListener('click', () => {
+      const unmute = v.muted;
+      document.querySelectorAll('.vid video').forEach(o => { o.muted = true; o.nextElementSibling.textContent = '🔇'; o.nextElementSibling.setAttribute('aria-label','Unmute video'); });
+      v.muted = !unmute; b.textContent = unmute ? '🔊' : '🔇';
+      b.setAttribute('aria-label', unmute ? 'Mute video' : 'Unmute video'); v.play();
+    });
+  });
+  document.querySelectorAll('.copy').forEach(b => b.addEventListener('click', () => {
+    const t = b.dataset.copy, old = b.textContent;
+    const done = m => { b.textContent = m; setTimeout(() => b.textContent = old, 1800); };
+    try { navigator.clipboard.writeText(t).then(() => done('Copied'), () => done(t)); } catch (e) { done(t); }
+  }));
+</script>
+</body>
+</html>
