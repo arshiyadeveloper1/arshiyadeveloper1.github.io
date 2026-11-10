@@ -70,7 +70,17 @@
   .card:hover .arch img{transform:scale(1.04)}
   .card .cap{margin-top:calc(var(--cg) * var(--s));padding-left:calc(var(--cx,0) * var(--s))}
   .snd{position:absolute;right:calc(16 * var(--s));bottom:calc(16 * var(--s));width:calc(48 * var(--s));height:calc(48 * var(--s));min-width:32px;min-height:32px;border-radius:50%;background:rgba(0,0,0,.6);font-size:calc(20 * var(--s))}
-  .vid{cursor:pointer}
+  .arch{cursor:zoom-in}
+  /* click-to-zoom viewer */
+  .lb{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.92);padding:calc(72px + env(safe-area-inset-top,0px)) max(16px, env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px, env(safe-area-inset-left,0px));opacity:0;visibility:hidden;transition:opacity .3s ease, visibility .3s}
+  .lb.open{opacity:1;visibility:visible}
+  .lb figure{display:flex;flex-direction:column;align-items:center;gap:14px;max-width:100%;max-height:100%;transform:scale(.82);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+  .lb.open figure{transform:none}
+  .lb-media{display:block;max-width:min(92vw,1100px);max-height:calc(100svh - 170px);width:auto;height:auto;border-radius:14px;background:#111}
+  .lb figcaption{font-size:16px;color:var(--muted);text-align:center;max-width:60ch}
+  .lb-close{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));right:max(16px, env(safe-area-inset-right,0px));width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.45);color:var(--fg);font-size:26px;line-height:1}
+  .lb-close:hover{background:rgba(255,255,255,.1)}
+  @media (prefers-reduced-motion:reduce){.lb,.lb figure{transition:none}}
 
   /* contact */
   .copy{margin-top:8px;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:5px 14px;font-size:13px;color:var(--fg)}
@@ -300,15 +310,65 @@
       if (sec.querySelector('.pre')) io.observe(sec);
     });
   })();
+  // sound button on video cards (only the button toggles sound; clicking the card opens the viewer)
   document.querySelectorAll('.vid').forEach(w => {
     const v = w.querySelector('video'), b = w.querySelector('.snd');
-    w.addEventListener('click', () => {
+    b.addEventListener('click', e => {
+      e.stopPropagation();
       const unmute = v.muted;
       document.querySelectorAll('.vid video').forEach(o => { o.muted = true; o.nextElementSibling.textContent = '🔇'; o.nextElementSibling.setAttribute('aria-label','Unmute video'); });
       v.muted = !unmute; b.textContent = unmute ? '🔊' : '🔇';
       b.setAttribute('aria-label', unmute ? 'Mute video' : 'Unmute video'); v.play();
     });
   });
+  // click any work to zoom it to full size
+  (() => {
+    const lb = document.createElement('div');
+    lb.className = 'lb'; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', 'Work preview');
+    lb.innerHTML = '<button class="lb-close" aria-label="Close preview">×</button><figure><div class="lb-slot"></div><figcaption></figcaption></figure>';
+    document.body.appendChild(lb);
+    const slot = lb.querySelector('.lb-slot'), cap = lb.querySelector('figcaption'), closeBtn = lb.querySelector('.lb-close');
+    let lastFocus = null;
+    function open(arch) {
+      const card = arch.closest('.card'), v = arch.querySelector('video'), img = arch.querySelector('img');
+      let m;
+      if (v) {
+        m = document.createElement('video');
+        m.src = v.currentSrc || v.src; m.controls = true; m.loop = true; m.playsInline = true; m.autoplay = true;
+        const t = v.currentTime; m.addEventListener('loadedmetadata', () => { try { m.currentTime = t; } catch (e) {} }, {once: true});
+        document.querySelectorAll('.vid video').forEach(o => { o.muted = true; o.nextElementSibling.textContent = '🔇'; });
+      } else {
+        m = document.createElement('img'); m.src = img.currentSrc || img.src; m.alt = img.alt;
+      }
+      m.className = 'lb-media';
+      slot.replaceChildren(m);
+      cap.textContent = card ? card.querySelector('.cap span').textContent.replace(/\s+/g, ' ').trim() : '';
+      lastFocus = document.activeElement;
+      lb.classList.add('open'); document.documentElement.style.overflow = 'hidden';
+      if (v) m.play().catch(() => { m.muted = true; m.play().catch(() => {}); });
+      closeBtn.focus();
+    }
+    function close() {
+      lb.classList.remove('open'); document.documentElement.style.overflow = '';
+      const m = slot.querySelector('video'); if (m) m.pause();
+      setTimeout(() => { if (!lb.classList.contains('open')) slot.replaceChildren(); }, 320);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    document.querySelectorAll('.arch').forEach(a => {
+      const clone = a.closest('.clone');
+      a.setAttribute('role', 'button'); a.tabIndex = clone ? -1 : 0;
+      const c = a.closest('.card').querySelector('.cap span');
+      a.setAttribute('aria-label', 'View larger: ' + c.textContent.replace(/\s+/g, ' ').trim());
+      a.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(a); } });
+    });
+    document.addEventListener('click', e => {
+      const a = e.target.closest('.arch');
+      if (a && !e.target.closest('.snd') && !lb.contains(a)) open(a);
+    });
+    closeBtn.addEventListener('click', close);
+    lb.addEventListener('click', e => { if (e.target === lb || e.target.tagName === 'FIGURE') close(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contains('open')) close(); });
+  })();
   document.querySelectorAll('.copy').forEach(b => b.addEventListener('click', () => {
     const t = b.dataset.copy, old = b.textContent;
     const done = m => { b.textContent = m; setTimeout(() => b.textContent = old, 1800); };
