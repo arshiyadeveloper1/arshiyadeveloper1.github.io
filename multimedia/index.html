@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Arshiya M A, Multimedia Designer. Thumbnails, video edits and design work.">
+<meta name="description" content="Arshiya M A, Multimedia Designer. Thumbnails, posters, video edits and design work.">
 <title>Arshiya M A Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,6 +32,10 @@
   .a{position:absolute;left:calc(var(--x) * var(--u));top:calc(var(--y) * var(--s));width:calc(var(--w) * var(--s))}
   .row{display:contents}
   .card.clone{display:none}
+  .mrow{display:flex;gap:calc(79 * var(--s));overflow-x:auto;scrollbar-width:none;padding-inline:calc(108 * var(--u))}
+  .mrow::-webkit-scrollbar{display:none}
+  .mrow .card{flex:0 0 calc(367 * var(--s));min-width:0}
+  .mrow .card.clone{display:block}
 
   /* type, sizes are Canva's rendered px */
   .d{font-family:var(--serif);font-weight:400;font-size:calc(140.6 * var(--s));line-height:calc(132 * var(--s));letter-spacing:-.005em}
@@ -115,10 +119,12 @@
     .rule{width:110px!important}
     .lst li{padding-left:22px}.lst li::before{left:4px;top:9px;width:5px;height:5px}
     .row{display:grid;grid-template-columns:1fr 1fr;gap:28px 16px}
-    .art .row{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-inline:calc(-1 * max(16px, env(safe-area-inset-left,0px)));padding-inline:max(16px, env(safe-area-inset-left,0px));scroll-padding-inline:max(16px, env(safe-area-inset-left,0px))}
+    .art .row{display:flex;max-width:none!important;gap:16px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-inline:calc(-1 * max(16px, env(safe-area-inset-left,0px)));padding-inline:max(16px, env(safe-area-inset-left,0px));scroll-padding-inline:max(16px, env(safe-area-inset-left,0px))}
     .art .row::-webkit-scrollbar{display:none}
     .art .row .card{flex:0 0 78%;min-width:0}
     .art .row .card.clone{display:block}
+    .mrow{width:auto!important;max-width:none!important;gap:16px;margin-inline:calc(-1 * max(16px, env(safe-area-inset-left,0px)));padding-inline:max(16px, env(safe-area-inset-left,0px))}
+    .mrow .card{flex:0 0 62%}
     .card .arch{height:auto!important;aspect-ratio:481/522}
     .more .card .arch{aspect-ratio:367/397}
     .card .cap{margin-top:12px;padding-left:0}
@@ -202,8 +208,8 @@
       <p class="cap ar t35" style="--aw:37;--ag:27"><svg><use href="#arr"/></svg><span>Video edit for<br>Meenatchi by<br>Manjiro Tech.</span></p>
     </div>
     <div class="a card" style="--x:1380;--y:285;--w:481;--cg:36;--cx:53">
-      <div class="arch" style="height:calc(522 * var(--s))"><img src="img/art-saloe-v2.jpg" alt="Thumbnail: Stress ah? Take 1 hour for yourself"></div>
-      <p class="cap ar t35" style="--aw:37;--ag:27"><svg><use href="#arr"/></svg><span>Thumbnail for<br>Saloewellnessstudio<br>by Manjiro Tech.</span></p>
+      <div class="arch" style="height:calc(522 * var(--s))"><img src="img/poster-kauvery-1.jpg" alt="Poster: Kauvery Hospital and Maragadam Hospital partnership" style="object-position:50% 50%"></div>
+      <p class="cap ar t35" style="--aw:37;--ag:27"><svg><use href="#arr"/></svg><span>Poster for<br>Kauvery Hospital and<br>Maragadam Hospital</span></p>
     </div>
   </div>
 </section>
@@ -219,22 +225,30 @@
 <!-- 6. MORE OF MY WORK -->
 <section class="s more">
   <h2 class="a d" style="--x:108;--y:122;--w:1122">More of My Work</h2>
-  <div class="row">
-    <div class="a card" style="--x:108;--y:442;--w:367;--cg:36">
+  <div class="a mrow" style="--x:0;--y:442;width:100%">
+    <div class="card" style="--cg:36">
       <div class="arch" style="height:calc(397 * var(--s))"><img src="img/work-puffy.jpg" alt="Thumbnail: Face puffy ah irukka?"></div>
       <p class="cap ar t34" style="--aw:36;--ag:26"><svg><use href="#arr"/></svg><span>About 5 Areas to find out face puffiness</span></p>
     </div>
-    <div class="a card" style="--x:557;--y:442;--w:367;--cg:36">
+    <div class="card" style="--cg:36">
       <div class="arch" style="height:calc(397 * var(--s))"><img src="img/work-redflag-v2.jpg" alt="Thumbnail: Is this love or a red flag?"></div>
       <p class="cap ar t34" style="--aw:36;--ag:26"><svg><use href="#arr"/></svg><span>Is This love or a Red flag?</span></p>
     </div>
-    <div class="a card" style="--x:1002;--y:442;--w:367;--cg:36">
+    <div class="card" style="--cg:36">
       <div class="arch vid" style="height:calc(397 * var(--s))"><video src="video/money.mp4" poster="video/money.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Video edit for Meenatchi: money"></video><button class="snd" aria-label="Unmute video">🔇</button></div>
       <p class="cap ar t34" style="--aw:36;--ag:26"><svg><use href="#arr"/></svg><span>5 Money formulas everyone to know</span></p>
     </div>
-    <div class="a card" style="--x:1446;--y:442;--w:367;--cg:36">
+    <div class="card" style="--cg:36">
       <div class="arch" style="height:calc(397 * var(--s))"><img src="img/work-movies-v2.jpg" alt="Thumbnail: Must watch movies"></div>
       <p class="cap ar t34" style="--aw:36;--ag:26"><svg><use href="#arr"/></svg><span>5 Must watch movies</span></p>
+    </div>
+    <div class="card" style="--cg:36">
+      <div class="arch" style="height:calc(397 * var(--s))"><img src="img/poster-kauvery-2.jpg" alt="Poster: Kauvery Hospital and Maragadam Hospital, 24 hour services" style="object-position:50% 50%"></div>
+      <p class="cap ar t34" style="--aw:36;--ag:26"><svg><use href="#arr"/></svg><span>Poster for Kauvery Hospital and Maragadam Hospital</span></p>
+    </div>
+    <div class="card" style="--cg:36">
+      <div class="arch" style="height:calc(397 * var(--s))"><img src="img/art-saloe-v2.jpg" alt="Thumbnail: Stress ah? Take 1 hour for yourself"></div>
+      <p class="cap ar t34" style="--aw:36;--ag:26"><svg><use href="#arr"/></svg><span>Thumbnail for Saloewellnessstudio by Manjiro Tech.</span></p>
     </div>
   </div>
 </section>
@@ -262,12 +276,11 @@
 </section>
 
 <script>
-  // My Art on phones: continuous, seamless marquee (cards duplicated once so it loops without a jump)
-  (() => {
-    const row = document.querySelector('.art .row');
+  // seamless auto-scrolling rows: My Art on phones, More of My Work on every screen
+  function marquee(row, active) {
     [...row.children].forEach(c => { const k = c.cloneNode(true); k.classList.add('clone'); k.setAttribute('aria-hidden','true'); k.querySelectorAll('button').forEach(b => b.tabIndex = -1); row.appendChild(k); });
     row.querySelectorAll('.clone video').forEach(v => { v.muted = true; v.play().catch(() => {}); });
-    const mq = matchMedia('(max-width:820px)'), rm = matchMedia('(prefers-reduced-motion: reduce)');
+    const rm = matchMedia('(prefers-reduced-motion: reduce)');
     const SPEED = 40; // px per second
     let pos = 0, last = 0, holdUntil = 0, down = false;
     const hold = () => { holdUntil = performance.now() + 2500; };
@@ -275,23 +288,25 @@
     row.addEventListener('touchstart', () => { down = true; hold(); }, {passive:true});
     ['pointerup','pointercancel','touchend'].forEach(ev => row.addEventListener(ev, () => { down = false; hold(); }, {passive:true}));
     row.addEventListener('wheel', hold, {passive:true});
+    row.addEventListener('mouseenter', () => { down = true; });
+    row.addEventListener('mouseleave', () => { down = false; hold(); });
     function tick(t) {
       const dt = last ? Math.min(t - last, 64) / 1000 : 0; last = t;
-      if (mq.matches) {
+      if (active()) {
         const half = row.querySelector('.clone').offsetLeft - row.firstElementChild.offsetLeft;
-        if (down || t < holdUntil || rm.matches || document.hidden) {
-          pos = row.scrollLeft;
-        } else {
-          pos += SPEED * dt;
-        }
+        const paused = down || t < holdUntil || rm.matches || document.hidden || document.documentElement.style.overflow === 'hidden';
+        if (paused) pos = row.scrollLeft; else pos += SPEED * dt;
         if (half > 0 && pos >= half) pos -= half;
-        if (!down && t >= holdUntil && !rm.matches) row.scrollLeft = pos;
+        if (!paused) row.scrollLeft = pos;
         else if (half > 0 && row.scrollLeft >= half) row.scrollLeft -= half;
       }
       requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
-  })();
+  }
+  const phone = matchMedia('(max-width:820px)');
+  marquee(document.querySelector('.art .row'), () => phone.matches);
+  marquee(document.querySelector('.more .mrow'), () => true);
   // entrance for the sections below the hero: corner direction comes from where each element sits
   (() => {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
@@ -342,7 +357,7 @@
       }
       m.className = 'lb-media';
       slot.replaceChildren(m);
-      cap.textContent = card ? card.querySelector('.cap span').textContent.replace(/\s+/g, ' ').trim() : '';
+      cap.textContent = card ? card.querySelector('.cap span').innerHTML.replace(/<br\s*\/?>/gi, ' ').replace(/\s+/g, ' ').trim() : '';
       lastFocus = document.activeElement;
       lb.classList.add('open'); document.documentElement.style.overflow = 'hidden';
       if (v) m.play().catch(() => { m.muted = true; m.play().catch(() => {}); });
@@ -358,7 +373,7 @@
       const clone = a.closest('.clone');
       a.setAttribute('role', 'button'); a.tabIndex = clone ? -1 : 0;
       const c = a.closest('.card').querySelector('.cap span');
-      a.setAttribute('aria-label', 'View larger: ' + c.textContent.replace(/\s+/g, ' ').trim());
+      a.setAttribute('aria-label', 'View larger: ' + c.innerHTML.replace(/<br\s*\/?>/gi, ' ').replace(/\s+/g, ' ').trim());
       a.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(a); } });
     });
     document.addEventListener('click', e => {
